@@ -4,10 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a20896a7-0fd1-43d2-80f1-83842d7e2c60" name="Changes" comment="project created.&#10;modules imported.&#10;project files created.&#10;flask app set up.&#10;postgress database setup.&#10;db orm mapped classes setup.&#10;basic front end for clients page setup.">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ignore.gitignore" afterDir="false" />
+    <list default="true" id="a20896a7-0fd1-43d2-80f1-83842d7e2c60" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/repositories.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/add_tattoo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unit_of_works.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/client_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/client_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/clients.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clients.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/details_panel.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/details_panel.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/navbar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,13 +59,17 @@
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dummybuffer&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/select__client&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/jrmor/PycharmProjects/CaitieInk/templates&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk" />
+      <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\repositories" />
     </key>
   </component>
   <component name="RunManager">
@@ -85,6 +97,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.main" />
       </list>
     </recent_temporary>

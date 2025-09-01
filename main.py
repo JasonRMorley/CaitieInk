@@ -1,68 +1,68 @@
 from flask import Flask, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap5
-import wtforms
 from forms import AddClientForm
-
-from database import Session, get_all_clients, add_client, get_client_details
-from models import Client
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret'
-
-bootstrap = Bootstrap5(app)
+from database import SessionFactory
+from repositories import ClientRepository
+from unit_of_works import SqlAlchemyUnitOfWork
+from services import ClientService
 
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+def create_app():
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = 'secret'
 
-@app.route('/bookings')
-def bookings():
-    return render_template('bookings.html')
+    bootstrap = Bootstrap5(app)
+    uow_factory = lambda: SqlAlchemyUnitOfWork(SessionFactory)
+    client_service = ClientService(uow_factory)
 
-@app.route('/payments')
-def payments():
-    return render_template('payments.html')
+    @app.route('/')
+    def route_home():
+        return render_template('index.html')
 
-@app.route('/reports')
-def reports():
-    return render_template('reports.html')
+    @app.route('/bookings')
+    def route_bookings():
+        return render_template('bookings.html')
+
+    @app.route('/payments')
+    def route_payments():
+        return render_template('payments.html')
+
+    @app.route('/reports')
+    def route_reports():
+        return render_template('reports.html')
+
+    @app.route('/clients/', defaults={'client_id': None})
+    @app.route('/clients/<int:client_id>/')
+    def route_clients(client_id=None):
+
+        if client_id:
+            selected_client = None
+
+        return render_template(
+            'clients.html',
+
+        )
+
+    @app.route("/add_client", methods=["GET", "POST"])
+    def route_add_client():
+        form = AddClientForm()
+        if form.validate_on_submit():
+            first_name, last_name, phone_number, notes = (
+                form.first_name.data, form.last_name.data, form.phone_number.data, form.notes.data
+            )
+            client_service.register_client(
+                first_name=first_name, last_name=last_name, phone_number=phone_number, notes=notes
+            )
+            flash(f"Client, {first_name} {last_name} added!", "success")
+
+            return redirect(url_for("add_client_page"))
+        return render_template("add_client.html", form=form)
+
+    @app.route("/add_tattoo")
+    def route_add_tattoo():
+        return render_template("add_tattoo.html")
+
+    app.run(debug=True)
 
 
-@app.route('/clients/', defaults={'client_id': None})
-@app.route('/clients/<client_id>/')
-def clients(client_id=None):
-    client_list = get_all_clients()
-
-    selected_client = None
-    if client_id:
-        client_id = client_id.strip("<").strip(">")
-        selected_client = get_client_details(client_id)
-
-    return render_template(
-        'clients.html',
-        clients=client_list,
-        client_details=selected_client
-    )
-
-
-
-@app.route("/add_client", methods=["GET", "POST"])
-def add_client_page():
-    form = AddClientForm()
-    if form.validate_on_submit():
-        first_name = form.first_name.data
-        last_name = form.last_name.data
-        phone_number = form.phone_number.data
-        notes = form.notes.data
-        client = Client(first_name=first_name, last_name=last_name, phone_number=phone_number, notes=notes)
-        add_client(client)
-
-        flash(f"Client, {first_name} {last_name} added!", "success")
-
-        return redirect(url_for("add_client_page"))
-    return render_template("add_client.html", form=form)
-
-
-if __name__ == "__main__": \
-        app.run(debug=True)
+create_app()
