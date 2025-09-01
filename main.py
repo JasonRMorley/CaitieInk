@@ -34,13 +34,15 @@ def create_app():
     @app.route('/clients/', defaults={'client_id': None})
     @app.route('/clients/<int:client_id>/')
     def route_clients(client_id=None):
-
+        selected_client = None
         if client_id:
-            selected_client = None
+            selected_client = client_service.get_client(client_id)
+            print(selected_client)
 
         return render_template(
             'clients.html',
-            client_profiles=client_service.get_all_clients()
+            client_profiles=client_service.get_all_clients(),
+            selected_client=selected_client
         )
 
     @app.route("/add_client", methods=["GET", "POST"])
@@ -61,6 +63,11 @@ def create_app():
     @app.route("/add_tattoo")
     def route_add_tattoo():
         return render_template("add_tattoo.html")
+
+    @app.route("/test/", defaults={"var": None})
+    @app.route("/test/<var>")
+    def route_test(var):
+        return f"<h1>{var} This is a test</h1>"
 
     app.run(debug=True)
 

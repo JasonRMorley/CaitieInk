@@ -14,3 +14,7 @@ class ClientService:
     def get_all_clients(self):
         with self.uow_factory() as uow:
             return uow.clients.session.query(Client).all()
+
+    def get_client(self, client_id):
+        with self.uow_factory() as uow:
+            return uow.clients.get_by_id(client_id)

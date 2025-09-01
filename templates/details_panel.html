@@ -8,9 +8,9 @@
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-                <h6>Name: {{client_details["name"]}}</h6>
-                <h6>Phone numer: {{client_details["phone"]}}</h6>
-                <h6>Notes: {{client_details["notes"]}}</h6>
+                <h6>Name: {{selected_client.first_name}} {{selected_client.last_name}}</h6>
+                <h6>Phone numer: {{selected_client.phone_number}}</h6>
+                <h6>Notes: {{selected_client.notes}}</h6>
                 <button class="btn" , type="button">Edit details</button>
             </div>
         </div>
