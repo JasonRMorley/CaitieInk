@@ -40,7 +40,7 @@ def create_app():
 
         return render_template(
             'clients.html',
-
+            client_profiles=client_service.get_all_clients()
         )
 
     @app.route("/add_client", methods=["GET", "POST"])

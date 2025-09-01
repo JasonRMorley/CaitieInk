@@ -4,17 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a20896a7-0fd1-43d2-80f1-83842d7e2c60" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/repositories.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/add_tattoo.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/unit_of_works.py" afterDir="false" />
+    <list default="true" id="a20896a7-0fd1-43d2-80f1-83842d7e2c60" name="Changes" comment="Updated - add client feature.">
+      <change afterPath="$PROJECT_DIR$/client_profiles.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repositories.py" beforeDir="false" afterPath="$PROJECT_DIR$/repositories.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services.py" beforeDir="false" afterPath="$PROJECT_DIR$/services.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/client_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/client_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/clients.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clients.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/details_panel.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/details_panel.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/navbar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,6 +47,8 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="sortByType" value="true" />
+    <option name="sortKey" value="BY_TYPE" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
@@ -127,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755779677232</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Updated - add client feature.">
+      <option name="closed" value="true" />
+      <created>1756748627650</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1756748627650</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -155,6 +161,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="project created.&#10;modules imported.&#10;project files created.&#10;flask app set up.&#10;postgress database setup.&#10;db orm mapped classes setup.&#10;basic front end for clients page setup." />
-    <option name="LAST_COMMIT_MESSAGE" value="project created.&#10;modules imported.&#10;project files created.&#10;flask app set up.&#10;postgress database setup.&#10;db orm mapped classes setup.&#10;basic front end for clients page setup." />
+    <MESSAGE value="Updated - add client feature." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated - add client feature." />
   </component>
 </project>

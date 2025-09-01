@@ -10,3 +10,7 @@ class ClientService:
             client = Client(first_name=first_name, last_name=last_name, phone_number=phone_number, notes=notes)
         uow.clients.add(client)
         print("client added")
+
+    def get_all_clients(self):
+        with self.uow_factory() as uow:
+            return uow.clients.session.query(Client).all()

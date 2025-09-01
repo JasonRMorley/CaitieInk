@@ -1,6 +1,6 @@
 <div class="list-group">
-    {% for client in clients %}
-        <a href="{{ url_for('clients')}}">
+    {% for client in client_profiles %}
+        <a href="{{ url_for('route_clients')}}">
             {{ client.first_name }} {{ client.last_name }}
         </a>
     {% endfor %}
