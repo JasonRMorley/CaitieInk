@@ -11,7 +11,7 @@
                 <h6>Name: {{selected_client.first_name}} {{selected_client.last_name}}</h6>
                 <h6>Phone numer: {{selected_client.phone_number}}</h6>
                 <h6>Notes: {{selected_client.notes}}</h6>
-                <button class="btn" , type="button">Edit details</button>
+                <button class="btn" type="button">Edit details</button>
             </div>
         </div>
     </div>
@@ -25,19 +25,20 @@
         <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <span class="container">
-                    <button><a href="/add_tattoo">Add</a></button>
+                    <button><a href="{{ url_for('route_add_tattoo', client_id = selected_client.client_id ) }}">Add</a></button>
                 </span>
-                {% for tattoo in tattoos %}
+                {% for tattoo in selected_client.tattoos %}
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                            <h5 class="card-title">Mandala Sleeve <button>Edit</button></h5>
+                            <h5 class="card-title">{{ tattoo.title }}<button>Edit</button></h5>
                             <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
                             <p class="card-text">
                             <ul>
-                                <li>estimated price: </li>
-                                <li>final price: </li>
-                                <li>Status: Booked in</li>
-                                <li>Notes: </li>
+                                <li>estimated price: {{tattoo.estimated_price}}</li>
+                                <li>final price: {{tattoo.final_price}}</li>
+                                <li>Status: {{tattoo.status}}</li>
+                                <li>Notes: {{tattoo.note}}</li>
+                                <li>Recent Booking: {{tattoo.bookings}}</li>
                             </ul>
                             </p>
                             <a href="#" class="card-link">Design</a>

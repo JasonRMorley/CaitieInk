@@ -1,5 +1,7 @@
-from sqlalchemy.orm import Session
-from models import Client
+from sqlalchemy.orm import Session, selectinload, joinedload, Load
+from models import *
+from sqlalchemy import select
+from typing import Sequence
 
 
 class ClientRepository:
@@ -9,8 +11,12 @@ class ClientRepository:
     def add(self, client: Client):
         self.session.add(client)
 
-    def get_by_id(self, client_id: int) -> Client | None:
+    def get_by_id(self, client_id: int, *, options: Sequence[Load] = ()) -> Client | None:
+        if options:
+            stmt = select(Client).options(*options).where(Client.client_id == client_id)
+            return self.session.execute(stmt).scalar_one_or_none()
         return self.session.get(Client, client_id)
 
-    def get_all_client_names(self):
+    def get_all_clients(self):
         return self.session.query(Client).all()
+

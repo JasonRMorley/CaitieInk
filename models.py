@@ -20,9 +20,11 @@ class Tattoo(Base):
     __tablename__ = "tattoo"
     tattoo_id = Column(Integer, primary_key=True)
     client_id = Column(Integer, ForeignKey("clients.client_id"), nullable=False)
-    price_estimate = Column(Float, nullable=False)
-    price_final = Column(Float, nullable=False)
+    price_estimate = Column(Float, nullable=True)
+    price_final = Column(Float, nullable=True)
     status = Column(String)
+    title = Column(String)
+    note = Column(String)
 
     # Relationships
     client = relationship("Client", back_populates="tattoos")

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap5
-from forms import AddClientForm
+from forms import AddClientForm, AddTattoo
 from database import SessionFactory
 from repositories import ClientRepository
 from unit_of_works import SqlAlchemyUnitOfWork
@@ -36,12 +36,12 @@ def create_app():
     def route_clients(client_id=None):
         selected_client = None
         if client_id:
-            selected_client = client_service.get_client(client_id)
-            print(selected_client)
+            selected_client = client_service.retrieve_client_profile(client_id)
+
 
         return render_template(
             'clients.html',
-            client_profiles=client_service.get_all_clients(),
+            client_profiles=client_service.retrieve_all_clients(),
             selected_client=selected_client
         )
 
@@ -60,9 +60,16 @@ def create_app():
             return redirect(url_for("add_client_page"))
         return render_template("add_client.html", form=form)
 
-    @app.route("/add_tattoo")
-    def route_add_tattoo():
-        return render_template("add_tattoo.html")
+    @app.route("/add_tattoo/<client_id>/", methods=["GET", "POST"])
+    def route_add_tattoo(client_id=None):
+        form = AddTattoo()
+        if form.validate_on_submit():
+            title, note = form.data["title"], form.data["note"]
+            client_service.register_tattoo(client_id=client_id, title=title, note=note)
+
+
+
+        return render_template("add_tattoo.html", form=form)
 
     @app.route("/test/", defaults={"var": None})
     @app.route("/test/<var>")

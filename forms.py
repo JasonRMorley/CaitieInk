@@ -12,3 +12,10 @@ class AddClientForm(FlaskForm):
     notes = StringField("notes: ", validators=[Length(min=2, max=25)])
 
     submit = SubmitField("Submit")
+
+
+class AddTattoo(FlaskForm):
+    title = StringField("Enter title for tattoo", validators=[DataRequired(), Length(min=2, max=25)])
+    note = StringField("notes: ", validators=[Length(min=0, max=300)])
+
+    submit = SubmitField("Submit")
