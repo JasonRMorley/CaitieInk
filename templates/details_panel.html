@@ -25,22 +25,29 @@
         <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <span class="container">
-                    <button><a href="{{ url_for('route_add_tattoo', client_id = selected_client.client_id ) }}">Add</a></button>
+                    <button><a href="{{ url_for('route_add_tattoo', client_id = selected_client.id ) }}">Add</a></button>
                 </span>
                 {% for tattoo in selected_client.tattoos %}
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                            <h5 class="card-title">{{ tattoo.title }}<button>Edit</button></h5>
+                            <h5 class="card-title">{{ tattoo.title }}
+                                <a href="{{ url_for(
+                                'route_edit_tattoo', client_id = selected_client.id, tattoo_id = tattoo.id ) }}"
+                                >
+                                    edit
+                                </a>
+                                <button>delete</button>
+
+                            </h5>
                             <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
                             <p class="card-text">
                             <ul>
-                                <li>estimated price: {{tattoo.estimated_price}}</li>
-                                <li>final price: {{tattoo.final_price}}</li>
+                                <li>estimated price: {{tattoo.price_estimate}}</li>
+                                <li>final price: {{tattoo.price_final}}</li>
                                 <li>Status: {{tattoo.status}}</li>
                                 <li>Notes: {{tattoo.note}}</li>
-                                <li>Recent Booking: {{tattoo.bookings}}</li>
                             </ul>
-                            </p>
+
                             <a href="#" class="card-link">Design</a>
                             <a href="#" class="card-link">Consultation</a>
                             <a href="#" class="card-link">Book-in</a>

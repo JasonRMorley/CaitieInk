@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap5
-from forms import AddClientForm, AddTattoo
+from forms import AddClientForm, AddTattoo, EditTattoo
 from database import SessionFactory
 from repositories import ClientRepository
 from unit_of_works import SqlAlchemyUnitOfWork
@@ -71,6 +71,19 @@ def create_app():
 
         return render_template("add_tattoo.html", form=form)
 
+    @app.route("/edit_tattoo/<client_id>/<tattoo_id>", methods=["GET", "POST"])
+    def route_edit_tattoo(client_id, tattoo_id):
+        form = EditTattoo()
+        if form.validate_on_submit():
+            client_service.edit_tattoo(client_id=int(client_id),
+                                       tattoo_id=int(tattoo_id),
+                                       title=form.data["title"],
+                                       note=form.data["note"],
+                                       estimate=form.data["price_estimate"],
+                                       price=form.data["price_final"],
+                                       status=form.data["status"]
+                                       )
+        return render_template("edit_tattoo.html", form=form)
     @app.route("/test/", defaults={"var": None})
     @app.route("/test/<var>")
     def route_test(var):

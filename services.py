@@ -1,7 +1,8 @@
 from models import *
 from sqlalchemy.orm import selectinload
-from sqlalchemy import select
+from sqlalchemy import select, update, delete
 from dtos import *
+from typing import Optional
 
 class ClientService:
     def __init__(self, uow_factory):
@@ -89,7 +90,38 @@ class ClientService:
             client = uow.clients.get_by_id(client_id)
             return client.tattoos.append(tat)
 
-    def print_client_tattoos(self):
+    def edit_tattoo(
+            self,
+            client_id: int,
+            tattoo_id: int,
+            *,
+            title: Optional[str] = None,
+            note: Optional[str] = None,
+            estimate: Optional[int] = None,
+            price: Optional[int] = None,
+            status: Optional[str] = None,
+    ) -> bool:
+        """Return True if updated, False if tattoo not found."""
         with self.uow_factory() as uow:
-            test = uow.clients.get_by_id(2)
-            return [t.title for t in test.tattoos]
+            tattoo = uow.clients.session.get(Tattoo, tattoo_id)
+
+            if tattoo is None:
+                return False
+
+            if tattoo.client_id != client_id:
+                raise ValueError("Tattoo does not belong to this client")
+
+            if title is not None and title != "":
+                tattoo.title = title
+            if note is not None and note != "":
+                print(note)
+                tattoo.note = note
+            if estimate is not None:
+                tattoo.price_estimate = int(estimate)
+            if price is not None:
+                tattoo.price_final = int(price)
+            if status is not None and status != "":
+                tattoo.status = status
+
+            return True
+

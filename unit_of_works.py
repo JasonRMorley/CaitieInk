@@ -20,10 +20,13 @@ class SqlAlchemyUnitOfWork(AbstractContextManager):
             else:
                 self.session.commit()
         finally:
+            print("session closed")
             self.session.close()
 
     def commit(self):
+        print("session committed")
         self.session.commit()
 
     def rollback(self):
+        print("session rolled back")
         self.session.rollback()

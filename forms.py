@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 
-from wtforms import StringField, SubmitField, PasswordField
+from wtforms import StringField, SubmitField, PasswordField, IntegerField
 
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, Optional
 
 
 class AddClientForm(FlaskForm):
@@ -17,5 +17,15 @@ class AddClientForm(FlaskForm):
 class AddTattoo(FlaskForm):
     title = StringField("Enter title for tattoo", validators=[DataRequired(), Length(min=2, max=25)])
     note = StringField("notes: ", validators=[Length(min=0, max=300)])
+
+    submit = SubmitField("Submit")
+
+
+class EditTattoo(FlaskForm):
+    title = StringField("Enter title for tattoo", validators=[Length(min=0, max=25), Optional()])
+    price_estimate = IntegerField("Price Estimation", validators=[Length(min=0, max=300), Optional()])
+    price_final = IntegerField("Final Price", validators=[Length(min=0, max=300), Optional()])
+    status = StringField("Status", validators=[Length(min=0, max=30), Optional()])
+    note = StringField("notes: ", validators=[Length(min=0, max=300), Optional()])
 
     submit = SubmitField("Submit")
