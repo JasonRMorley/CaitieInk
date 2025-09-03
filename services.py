@@ -114,7 +114,6 @@ class ClientService:
             if title is not None and title != "":
                 tattoo.title = title
             if note is not None and note != "":
-                print(note)
                 tattoo.note = note
             if estimate is not None:
                 tattoo.price_estimate = int(estimate)

@@ -23,8 +23,8 @@ class AddTattoo(FlaskForm):
 
 class EditTattoo(FlaskForm):
     title = StringField("Enter title for tattoo", validators=[Length(min=0, max=25), Optional()])
-    price_estimate = IntegerField("Price Estimation", validators=[Length(min=0, max=300), Optional()])
-    price_final = IntegerField("Final Price", validators=[Length(min=0, max=300), Optional()])
+    price_estimate = IntegerField("Price Estimation", validators=[Optional()])
+    price_final = IntegerField("Final Price", validators=[Optional()])
     status = StringField("Status", validators=[Length(min=0, max=30), Optional()])
     note = StringField("notes: ", validators=[Length(min=0, max=300), Optional()])
 
