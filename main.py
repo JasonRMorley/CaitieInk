@@ -38,11 +38,10 @@ def create_app():
         if client_id:
             selected_client = client_service.retrieve_client_profile(client_id)
 
-
         return render_template(
             'clients.html',
             client_profiles=client_service.retrieve_all_clients(),
-            selected_client=selected_client
+            selected_client=selected_client,
         )
 
     @app.route("/add_client", methods=["GET", "POST"])

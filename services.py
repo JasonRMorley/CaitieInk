@@ -124,3 +124,8 @@ class ClientService:
 
             return True
 
+    def delete_tattoo(self, tattoo_id):
+        with self.uow_factory() as uow:
+            tattoo = uow.clients.session.get(Tattoo, tattoo_id)
+            delete(tattoo)
+
