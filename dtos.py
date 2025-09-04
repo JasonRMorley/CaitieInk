@@ -17,8 +17,8 @@ class DesignVM:
 class BookingVM:
     id: int
     date: date
-    start_time: time
-    end_time: time
+    time: time
+    # end_time: time
 
 @dataclass
 class PaymentVM:

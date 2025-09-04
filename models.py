@@ -60,7 +60,7 @@ class Booking(Base):
     tattoo_id = Column(Integer, ForeignKey("tattoo.tattoo_id"), nullable=False)  # FIXED
     date = Column(Date, nullable=False)
     time = Column(Time, nullable=False)
-    duration = Column(Integer, nullable=False)
+    # type = Column(String, nullable=False)
 
     tattoo = relationship("Tattoo", back_populates="bookings")
 

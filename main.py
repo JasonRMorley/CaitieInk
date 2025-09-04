@@ -1,10 +1,10 @@
 from flask import Flask, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap5
-from forms import AddClientForm, AddTattoo, EditTattoo
+from forms import *
 from database import SessionFactory
-from repositories import ClientRepository
+from repositories import Repository
 from unit_of_works import SqlAlchemyUnitOfWork
-from services import ClientService
+from services import *
 
 
 def create_app():
@@ -12,8 +12,11 @@ def create_app():
     app.config['SECRET_KEY'] = 'secret'
 
     bootstrap = Bootstrap5(app)
+
     uow_factory = lambda: SqlAlchemyUnitOfWork(SessionFactory)
     client_service = ClientService(uow_factory)
+    tattoo_service = TattooService(uow_factory)
+    booking_service = BookingService(uow_factory)
 
     @app.route('/')
     def route_home():
@@ -21,7 +24,9 @@ def create_app():
 
     @app.route('/bookings')
     def route_bookings():
-        return render_template('bookings.html')
+        booking_list = booking_service.retrieve_all_bookings()
+
+        return render_template('bookings.html', bookings=booking_list)
 
     @app.route('/payments')
     def route_payments():
@@ -64,9 +69,7 @@ def create_app():
         form = AddTattoo()
         if form.validate_on_submit():
             title, note = form.data["title"], form.data["note"]
-            client_service.register_tattoo(client_id=client_id, title=title, note=note)
-
-
+            tattoo_service.register_tattoo(client_id=client_id, title=title, note=note)
 
         return render_template("add_tattoo.html", form=form)
 
@@ -74,7 +77,7 @@ def create_app():
     def route_edit_tattoo(client_id, tattoo_id):
         form = EditTattoo()
         if form.validate_on_submit():
-            client_service.edit_tattoo(client_id=int(client_id),
+            tattoo_service.edit_tattoo(client_id=int(client_id),
                                        tattoo_id=int(tattoo_id),
                                        title=form.data["title"],
                                        note=form.data["note"],
@@ -83,10 +86,20 @@ def create_app():
                                        status=form.data["status"]
                                        )
         return render_template("edit_tattoo.html", form=form)
-    @app.route("/test/", defaults={"var": None})
-    @app.route("/test/<var>")
-    def route_test(var):
-        return f"<h1>{var} This is a test</h1>"
+
+    @app.route("/booking/",
+               defaults={"client_id": None, "tattoo_id": None}
+               )
+    @app.route("/booking/<client_id>/<tattoo_id>", methods=["GET", "POST"])
+    def route_add_booking(client_id, tattoo_id):
+        form = BookingForm()
+        if form.validate_on_submit:
+            booking_service.register_booking(tattoo_id=tattoo_id,
+                                             booking_date=form.data["date"],
+                                             booking_time=form.data["time"]
+                                             )
+
+        return render_template("booking.html", form=form)
 
     app.run(debug=True)
 

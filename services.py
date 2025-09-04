@@ -4,6 +4,7 @@ from sqlalchemy import select, update, delete
 from dtos import *
 from typing import Optional
 
+
 class ClientService:
     def __init__(self, uow_factory):
         self.uow_factory = uow_factory
@@ -69,8 +70,8 @@ class ClientService:
                             if t.design else None
                         ),
                         bookings=[
-                            BookingVM(id=b.booking_id, date=b.date, start_time=b.start_time,
-                                      end_time=getattr(b, "end_time", None))
+                            BookingVM(id=b.booking_id, date=b.date, time=b.time,
+                                      )
                             for b in t.bookings
                         ],
                         payments=[
@@ -82,6 +83,11 @@ class ClientService:
                 ],
             )
             return v
+
+
+class TattooService:
+    def __init__(self, uow_factory):
+        self.uow_factory = uow_factory
 
     def register_tattoo(self, client_id, title, note):
         with self.uow_factory() as uow:
@@ -124,8 +130,18 @@ class ClientService:
 
             return True
 
-    def delete_tattoo(self, tattoo_id):
+
+class BookingService:
+    def __init__(self, uow_factory):
+        self.uow_factory = uow_factory
+
+    def register_booking(self, tattoo_id, booking_date, booking_time):
         with self.uow_factory() as uow:
             tattoo = uow.clients.session.get(Tattoo, tattoo_id)
-            delete(tattoo)
+            booking = Booking(tattoo_id=tattoo_id, date=booking_date, time=booking_time)
+            tattoo.bookings.append(booking)
+            print(f"booking sent to db {tattoo.tattoo_id}")
 
+    def retrieve_all_bookings(self):
+        with self.uow_factory() as uow:
+            return uow.clients.get_all_bookings()

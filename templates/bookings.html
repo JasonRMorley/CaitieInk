@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block title %}Booking{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for b in bookings %}
+    <tr>
+      <th scope="row">1</th>
+      <td>{{ b.date }}</td>
+      <td>{{ b.time }}</td>
+      <td>{{ b.tattoo_id }}</td>
+    {% endfor %}
+    </tr>
+
+  </tbody>
+</table>
+</div>
+{% endblock %}

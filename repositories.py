@@ -4,7 +4,7 @@ from sqlalchemy import select
 from typing import Sequence
 
 
-class ClientRepository:
+class Repository:
     def __init__(self, session: Session):
         self.session = session
 
@@ -19,4 +19,8 @@ class ClientRepository:
 
     def get_all_clients(self):
         return self.session.query(Client).all()
+
+    def get_all_bookings(self):
+        return self.session.query(Booking).all()
+
 
