@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 
-from wtforms import StringField, SubmitField, FloatField, IntegerField, DateField, TimeField
+from wtforms import StringField, SubmitField, FloatField, IntegerField, DateField, TimeField, SelectField
 
 from wtforms.validators import DataRequired, Length, Optional
 
@@ -33,6 +33,8 @@ class EditTattoo(FlaskForm):
 
 class BookingForm(FlaskForm):
     date = DateField("Enter date")
-    time = TimeField("Enter time")
+    start_time = TimeField("Start time")
+    end_time = TimeField("End time")
+    booking_type = SelectField("What type of booking is it?", choices=[("Consultation","Consultation"), ("Inking", "Inking")])
 
     submit = SubmitField("Submit")

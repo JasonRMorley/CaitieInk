@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap5
 from forms import *
 from database import SessionFactory
-from repositories import Repository
+from repositories import ClientRepository
 from unit_of_works import SqlAlchemyUnitOfWork
 from services import *
 
@@ -93,10 +93,14 @@ def create_app():
     @app.route("/booking/<client_id>/<tattoo_id>", methods=["GET", "POST"])
     def route_add_booking(client_id, tattoo_id):
         form = BookingForm()
-        if form.validate_on_submit:
-            booking_service.register_booking(tattoo_id=tattoo_id,
+        if form.validate_on_submit():
+            print("why")
+            booking_service.register_booking(client_id=client_id,
+                                             tattoo_id=tattoo_id,
                                              booking_date=form.data["date"],
-                                             booking_time=form.data["time"]
+                                             start_time=form.data["start_time"],
+                                             end_time=form.data["end_time"],
+                                             booking_type=form.data["booking_type"]
                                              )
 
         return render_template("booking.html", form=form)

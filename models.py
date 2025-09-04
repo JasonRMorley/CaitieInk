@@ -4,9 +4,10 @@ from sqlalchemy.orm import relationship, declarative_base
 
 Base = declarative_base()
 
+
 class Client(Base):
-    __tablename__ = "clients"
-    client_id = Column(Integer, primary_key=True)
+    __tablename__ = "client"
+    id = Column(Integer, primary_key=True)
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
     phone_number = Column(String, nullable=False)
@@ -14,12 +15,14 @@ class Client(Base):
 
     # One client → many tattoos
     tattoos = relationship("Tattoo", back_populates="client")
+    bookings = relationship("Booking", back_populates="client")
+    payments = relationship("Payment", back_populates="client")
 
 
 class Tattoo(Base):
     __tablename__ = "tattoo"
-    tattoo_id = Column(Integer, primary_key=True)
-    client_id = Column(Integer, ForeignKey("clients.client_id"), nullable=False)
+    id = Column(Integer, primary_key=True)
+    client_id = Column(Integer, ForeignKey("client.id"), nullable=False)
     price_estimate = Column(Float, nullable=True)
     price_final = Column(Float, nullable=True)
     status = Column(String)
@@ -29,46 +32,30 @@ class Tattoo(Base):
     # Relationships
     client = relationship("Client", back_populates="tattoos")
     bookings = relationship("Booking", back_populates="tattoo")
-    consultation = relationship("Consultation", back_populates="tattoo", uselist=False)  # one-to-one
-    design = relationship("Design", back_populates="tattoo", uselist=False)  # one-to-one
-    payments = relationship("Payment", back_populates="tattoo")  # could be multiple
+    payments = relationship("Payment", back_populates="tattoo")
 
-
-class Consultation(Base):
-    __tablename__ = "consultation"
-    consultation_id = Column(Integer, primary_key=True)
-    tattoo_id = Column(Integer, ForeignKey("tattoo.tattoo_id"), nullable=False)  # FIXED
-    consultation_date = Column(Date, nullable=False)
-    consultation_form = Column(String, nullable=False)
-    consultation_notes = Column(Text, nullable=False)
-
-    tattoo = relationship("Tattoo", back_populates="consultation")
-
-
-class Design(Base):
-    __tablename__ = "design"
-    design_id = Column(Integer, primary_key=True)
-    tattoo_id = Column(Integer, ForeignKey("tattoo.tattoo_id"), nullable=False)  # FIXED
-    design_image = Column(String, nullable=False)
-
-    tattoo = relationship("Tattoo", back_populates="design")
 
 
 class Booking(Base):
-    __tablename__ = "bookings"
-    booking_id = Column(Integer, primary_key=True)
-    tattoo_id = Column(Integer, ForeignKey("tattoo.tattoo_id"), nullable=False)  # FIXED
+    __tablename__ = "booking"
+    id = Column(Integer, primary_key=True)
+    tattoo_id = Column(Integer, ForeignKey("tattoo.id"), nullable=False)
+    client_id = Column(Integer, ForeignKey("client.id"), nullable=False)
+
     date = Column(Date, nullable=False)
-    time = Column(Time, nullable=False)
-    # type = Column(String, nullable=False)
+    start_time = Column(Time, nullable=False)
+    end_time = Column(Time, nullable=False)
+    booking_type = Column(String, nullable=False)
 
     tattoo = relationship("Tattoo", back_populates="bookings")
+    client = relationship("Client", back_populates="bookings")
 
 
 class Payment(Base):
     __tablename__ = "payment"
-    payment_id = Column(Integer, primary_key=True)
-    tattoo_id = Column(Integer, ForeignKey("tattoo.tattoo_id"), nullable=False)  # FIXED
+    id = Column(Integer, primary_key=True)
+    tattoo_id = Column(Integer, ForeignKey("tattoo.id"), nullable=False)
+    client_id = Column(Integer, ForeignKey("client.id"), nullable=False)
     payment_type = Column(String, nullable=False)
     amount = Column(Float, nullable=False)
     date = Column(Date, nullable=False)
@@ -76,11 +63,12 @@ class Payment(Base):
     notes = Column(String, nullable=False)
 
     tattoo = relationship("Tattoo", back_populates="payments")
+    client = relationship("Client", back_populates="payments")
 
 
 class Expenses(Base):
-    __tablename__ = "expenses"
-    expense_id = Column(Integer, primary_key=True)
+    __tablename__ = "expense"
+    id = Column(Integer, primary_key=True)
     date = Column(Date, nullable=False)
     item = Column(String, nullable=False)
     category = Column(String, nullable=False)

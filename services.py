@@ -24,16 +24,13 @@ class ClientService:
             stmt = (
                 select(Client)
                 .options(
-                    selectinload(Client.tattoos)  # collection
-                    .joinedload(Tattoo.consultation),  # 1-1
+                    selectinload(Client.tattoos),
                     selectinload(Client.tattoos)
-                    .joinedload(Tattoo.design),  # 1-1
+                    .selectinload(Tattoo.bookings),
                     selectinload(Client.tattoos)
-                    .selectinload(Tattoo.bookings),  # 1-many
-                    selectinload(Client.tattoos)
-                    .selectinload(Tattoo.payments),  # 1-many
+                    .selectinload(Tattoo.payments),
                 )
-                .where(Client.client_id == client_id)
+                .where(Client.id == client_id)
             )
             client = uow.clients.session.execute(stmt).scalar_one_or_none()
             if client is None:
@@ -41,46 +38,42 @@ class ClientService:
 
             # map ORM -> VM while session is open
             v = ClientDetailVM(
-                id=client.client_id,
+                id=client.id,
                 first_name=client.first_name,
                 last_name=client.last_name,
                 phone=client.phone_number,
                 notes=client.notes,
                 tattoos=[
                     TattooVM(
-                        id=t.tattoo_id,
+                        id=t.id,
                         title=t.title,
                         note=t.note,
                         status=t.status,
                         price_estimate=t.price_estimate,
                         price_final=t.price_final,
-                        consultation=(
-                            ConsultationVM(
-                                id=t.consultation.consultation_id,
-                                path=t.consultation.consultation_form,
-                                notes=t.consultation.notes
-                            )
-                            if t.consultation else None
-                        ),
-                        design=(
-                            DesignVM(id=t.design.design_id,
-                                     path=t.design.design_image,
-                                     notes=t.design.notes
-                                     )
-                            if t.design else None
-                        ),
                         bookings=[
-                            BookingVM(id=b.booking_id, date=b.date, time=b.time,
+                            BookingVM(id=b.id, date=b.date, start_time=b.start_time, end_time=b.end_time,
+                                      booking_type=b.type
                                       )
                             for b in t.bookings
                         ],
                         payments=[
-                            PaymentVM(id=p.payment_id, amount=p.amount, method=getattr(p, "method", None))
+                            PaymentVM(id=p.id, amount=p.amount, method=getattr(p, "method", None))
                             for p in t.payments
                         ],
                     )
                     for t in client.tattoos
                 ],
+                bookings=[
+                    BookingVM(id=b.id, date=b.date, start_time=b.start_time, end_time=b.end_time, booking_type=b.type
+                    )
+                    for b in client.bookings
+                ],
+                payments=[
+                    PaymentVM(id=p.id, amount=p.amount, method=p.method
+                    )
+                    for p in client.payments
+                ]
             )
             return v
 
@@ -114,7 +107,7 @@ class TattooService:
             if tattoo is None:
                 return False
 
-            if tattoo.client_id != client_id:
+            if tattoo.id != client_id:
                 raise ValueError("Tattoo does not belong to this client")
 
             if title is not None and title != "":
@@ -135,13 +128,14 @@ class BookingService:
     def __init__(self, uow_factory):
         self.uow_factory = uow_factory
 
-    def register_booking(self, tattoo_id, booking_date, booking_time):
+    def register_booking(self, client_id, tattoo_id, booking_date, start_time, end_time, booking_type):
         with self.uow_factory() as uow:
             tattoo = uow.clients.session.get(Tattoo, tattoo_id)
-            booking = Booking(tattoo_id=tattoo_id, date=booking_date, time=booking_time)
+            booking = Booking(client_id=client_id, tattoo_id=tattoo_id, date=booking_date,
+                              start_time=start_time, end_time=end_time, booking_type=booking_type)
             tattoo.bookings.append(booking)
-            print(f"booking sent to db {tattoo.tattoo_id}")
+            print(f"booking sent to db {tattoo.id}")
 
     def retrieve_all_bookings(self):
         with self.uow_factory() as uow:
-            return uow.clients.get_all_bookings()
+            return uow.bookings.get_all_bookings()

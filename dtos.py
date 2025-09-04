@@ -1,24 +1,14 @@
 from dataclasses import dataclass, field
 from datetime import date, time
 
-@dataclass
-class ConsultationVM:
-    id: int
-    path: str
-    notes: str | None
-
-@dataclass
-class DesignVM:
-    id: int
-    path: str
-    notes: str | None
 
 @dataclass
 class BookingVM:
     id: int
     date: date
-    time: time
-    # end_time: time
+    start_time: time
+    end_time: time
+    booking_type: str
 
 @dataclass
 class PaymentVM:
@@ -34,8 +24,6 @@ class TattooVM:
     price_estimate: int | None
     price_final: int | None
     status: str
-    consultation: ConsultationVM | None = None
-    design: DesignVM | None = None
     bookings: list[BookingVM] = field(default_factory=list)
     payments: list[PaymentVM] = field(default_factory=list)
 
@@ -47,6 +35,8 @@ class ClientDetailVM:
     phone: str
     notes: str | None
     tattoos: list[TattooVM] = field(default_factory=list)
+    bookings: list[BookingVM] = field(default_factory=list)
+    payments: list[PaymentVM] = field(default_factory=list)
 
     @property
     def name(self) -> str:
