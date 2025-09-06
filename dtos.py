@@ -3,18 +3,46 @@ from datetime import date, time
 
 
 @dataclass
+class ClientMiniVM:
+    id: int
+    name: str
+
+
+@dataclass
+class TattooMiniVM:
+    id: int
+    title: str
+
+
+@dataclass
+class TableBookingVM:
+    id: int
+    date: date
+    start_time: time
+    end_time: time
+    booking_type: str
+    client_id: int
+    tattoo_id: int
+    client: ClientMiniVM
+    tattoo: TattooMiniVM | None
+
+@dataclass
 class BookingVM:
     id: int
     date: date
     start_time: time
     end_time: time
     booking_type: str
+    client_id: int
+    tattoo_id: int
+
 
 @dataclass
 class PaymentVM:
     id: int
     amount: float
     method: str | None
+
 
 @dataclass
 class TattooVM:
@@ -26,6 +54,7 @@ class TattooVM:
     status: str
     bookings: list[BookingVM] = field(default_factory=list)
     payments: list[PaymentVM] = field(default_factory=list)
+
 
 @dataclass
 class ClientDetailVM:

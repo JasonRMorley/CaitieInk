@@ -19,13 +19,17 @@
     </tr>
   </thead>
   <tbody>
+  {% if bookings %}
   {% for b in bookings %}
     <tr>
       <th scope="row">1</th>
+      <td>{{ b.client.name }}</td>
       <td>{{ b.date }}</td>
-      <td>{{ b.time }}</td>
-      <td>{{ b.tattoo_id }}</td>
+      <td>{{ b.start_time }}</td>
+      <td>{{ b.end_time }}</td>
+      <td>{{ b.booking_type }}</td>
     {% endfor %}
+  {% endif %}
     </tr>
 
   </tbody>

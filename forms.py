@@ -38,3 +38,12 @@ class BookingForm(FlaskForm):
     booking_type = SelectField("What type of booking is it?", choices=[("Consultation","Consultation"), ("Inking", "Inking")])
 
     submit = SubmitField("Submit")
+
+class PaymentForm(FlaskForm):
+    date = DateField("date")
+    time = TimeField("time")
+    booking_type = SelectField("Payment method?",
+                               choices=[("Cash", "Cash"), ("Bank Transfer", "Bank Transfer")])
+    notes = StringField("Notes:")
+
+    submit = SubmitField("Submit")

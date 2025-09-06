@@ -53,7 +53,7 @@ class ClientService:
                         price_final=t.price_final,
                         bookings=[
                             BookingVM(id=b.id, date=b.date, start_time=b.start_time, end_time=b.end_time,
-                                      booking_type=b.type
+                                      booking_type=b.booking_type, client_id=b.client_id, tattoo_id=b.tattoo_id
                                       )
                             for b in t.bookings
                         ],
@@ -65,13 +65,15 @@ class ClientService:
                     for t in client.tattoos
                 ],
                 bookings=[
-                    BookingVM(id=b.id, date=b.date, start_time=b.start_time, end_time=b.end_time, booking_type=b.type
-                    )
+                    BookingVM(id=b.id, date=b.date, start_time=b.start_time,
+                              end_time=b.end_time, booking_type=b.booking_type,
+                              client_id=b.client_id, tattoo_id=b.tattoo_id
+                              )
                     for b in client.bookings
                 ],
                 payments=[
                     PaymentVM(id=p.id, amount=p.amount, method=p.method
-                    )
+                              )
                     for p in client.payments
                 ]
             )
@@ -136,6 +138,22 @@ class BookingService:
             tattoo.bookings.append(booking)
             print(f"booking sent to db {tattoo.id}")
 
-    def retrieve_all_bookings(self):
+    def retrieve_bookings_for_table(self):
         with self.uow_factory() as uow:
-            return uow.bookings.get_all_bookings()
+            bookings = uow.bookings.get_all_bookings()
+            if bookings is None:
+                return None
+
+            for b in bookings:
+                client = uow.clients.get_by_id(b.client_id)
+                client_name = client.first_name + " " + client.last_name
+
+                vm = [TableBookingVM(id=b.id, date=b.date, start_time=b.start_time,
+                                     end_time=b.end_time, booking_type=b.booking_type,
+                                     client=ClientMiniVM(id=b.client_id, name=client_name),
+                                     client_id=b.client_id, tattoo_id=b.tattoo_id,
+                                     tattoo=None
+                                     )
+                      ]
+
+            return vm

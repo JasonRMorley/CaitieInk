@@ -24,12 +24,13 @@ def create_app():
 
     @app.route('/bookings')
     def route_bookings():
-        booking_list = booking_service.retrieve_all_bookings()
+        booking_list = booking_service.retrieve_bookings_for_table()
 
         return render_template('bookings.html', bookings=booking_list)
 
     @app.route('/payments')
     def route_payments():
+
         return render_template('payments.html')
 
     @app.route('/reports')
@@ -94,7 +95,6 @@ def create_app():
     def route_add_booking(client_id, tattoo_id):
         form = BookingForm()
         if form.validate_on_submit():
-            print("why")
             booking_service.register_booking(client_id=client_id,
                                              tattoo_id=tattoo_id,
                                              booking_date=form.data["date"],
