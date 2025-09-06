@@ -147,12 +147,13 @@ class BookingService:
             for b in bookings:
                 client = uow.clients.get_by_id(b.client_id)
                 client_name = client.first_name + " " + client.last_name
+                tattoo_id, tattoo_name = b.tattoo_id, uow.tattoos.get_by_id(b.tattoo_id).title
 
                 vm = [TableBookingVM(id=b.id, date=b.date, start_time=b.start_time,
                                      end_time=b.end_time, booking_type=b.booking_type,
                                      client=ClientMiniVM(id=b.client_id, name=client_name),
                                      client_id=b.client_id, tattoo_id=b.tattoo_id,
-                                     tattoo=None
+                                     tattoo=TattooMiniVM(id=tattoo_id, title=tattoo_name)
                                      )
                       ]
 

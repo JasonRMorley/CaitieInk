@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session, selectinload, joinedload, Load
-from models import Client, Booking
+from models import Client, Booking, Tattoo
 from sqlalchemy import select
 from typing import Sequence
 
@@ -30,7 +30,9 @@ class BookingRepository:
         return self.session.query(Booking).all()
 
 
-
 class TattooRepository:
     def __init__(self, session: Session):
         self.session = session
+
+    def get_by_id(self, tattoo_id):
+        return self.session.get(Tattoo, tattoo_id)
