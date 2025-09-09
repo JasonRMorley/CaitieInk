@@ -17,21 +17,57 @@ def create_app():
     client_service = ClientService(uow_factory)
     tattoo_service = TattooService(uow_factory)
     booking_service = BookingService(uow_factory)
+    payment_service = PaymentService(uow_factory)
 
     @app.route('/')
     def route_home():
         return render_template('index.html')
 
-    @app.route('/bookings')
-    def route_bookings():
-        booking_list = booking_service.retrieve_bookings_for_table()
+    @app.route('/bookings/', defaults={'state': None})
+    @app.route('/bookings/<state>')
+    def route_bookings(state=None):
 
-        return render_template('bookings.html', bookings=booking_list)
+        booking_list = booking_service.retrieve_bookings_for_table(state)
+        form = PaymentForm()
+
+        return render_template('bookings.html', bookings=booking_list, form=form)
 
     @app.route('/payments')
     def route_payments():
+        payment_list = payment_service.retrieve_all_payments()
+        return render_template('payments.html', payments=payment_list)
 
-        return render_template('payments.html')
+    @app.route("/payment/add", methods=["POST"])
+    def route_add_payment():
+        form = PaymentForm()
+
+        if not form.validate_on_submit():
+            flash("Please correct the errors in the payment form.", "warning")
+            return redirect(url_for("route_bookings"))
+
+        if form.validate_on_submit():
+
+            booking_id = int(form.booking_id.data)
+            booking = booking_service.retrieve_booking_vm_by_id(booking_id)
+
+            if booking is None:
+                flash("Booking not found.", "danger")
+                return redirect(url_for("route_bookings"))
+
+            payment_service.register_payment(
+                tattoo_id=booking.tattoo_id,
+                client_id=booking.client_id,
+                booking_id=booking_id,
+                payment_type=form.payment_type.data,
+                amount=form.amount.data,
+                date=form.date.data,
+                notes=form.notes.data or "",
+            )
+
+            booking_service.mark_completed(booking_id)
+            flash("Payment recorded and booking completed.", "success")
+
+        return redirect(url_for("route_bookings"))
 
     @app.route('/reports')
     def route_reports():
@@ -100,7 +136,8 @@ def create_app():
                                              booking_date=form.data["date"],
                                              start_time=form.data["start_time"],
                                              end_time=form.data["end_time"],
-                                             booking_type=form.data["booking_type"]
+                                             booking_type=form.data["booking_type"],
+                                             state="Current"
                                              )
 
         return render_template("booking.html", form=form)

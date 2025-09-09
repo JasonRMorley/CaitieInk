@@ -1,0 +1,25 @@
+<div class="modal fade" id="PaymentModal" tabindex="-1" aria-labelledby="PaymentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="PaymentModalLabel">
+          Complete Booking
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <p class="mb-2">
+      <strong>Client:</strong> <span id="payment-client"></span><br>
+      <strong>Tattoo:</strong> <span id="payment-tattoo"></span>
+      </p>
+
+      <div class="modal-body">
+        {{ render_form(form, action=url_for('route_add_payment')) }}
+      </div>
+
+      <div class="modal-footer">
+      </div>
+
+    </div>
+  </div>
+</div>

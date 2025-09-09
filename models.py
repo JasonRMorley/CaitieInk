@@ -46,6 +46,7 @@ class Booking(Base):
     start_time = Column(Time, nullable=False)
     end_time = Column(Time, nullable=False)
     booking_type = Column(String, nullable=False)
+    state = Column(String, nullable=False)
 
     tattoo = relationship("Tattoo", back_populates="bookings")
     client = relationship("Client", back_populates="bookings")
@@ -56,10 +57,11 @@ class Payment(Base):
     id = Column(Integer, primary_key=True)
     tattoo_id = Column(Integer, ForeignKey("tattoo.id"), nullable=False)
     client_id = Column(Integer, ForeignKey("client.id"), nullable=False)
+    booking_id = Column(Integer, ForeignKey("booking.id"), nullable=False)
+
     payment_type = Column(String, nullable=False)
     amount = Column(Float, nullable=False)
     date = Column(Date, nullable=False)
-    time = Column(Time, nullable=False)
     notes = Column(String, nullable=False)
 
     tattoo = relationship("Tattoo", back_populates="payments")

@@ -8,27 +8,27 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="container">
     <table class="table">
         <thead>
             <tr>
-            <th scope="col">Tattoo ID</th>
-            <th scope="col">Client ID</th>
+            <th scope="col">Tattoo Title</th>
+            <th scope="col">Client Name</th>
+            <th scope="col">Payment Type</th>
             <th scope="col">Amount</th>
-            <th scope="col">Date</th>
-            <th scope="col">Date</th>
+            <th scope="col">Note</th>
             </tr>
         </thead>
         <tbody>
         {% if payments %}
         {% for p in payments %}
         <tr>
-            <th scope="row">1</th>
-            <td>{{ b.client.name }}</td>
-            <td>{{ b.date }}</td>
-            <td>{{ b.start_time }}</td>
-            <td>{{ b.end_time }}</td>
-            <td>{{ b.booking_type }}</td>
+            <td>{{ p.tattoo_title }}</td>
+            <td>{{ p.client_name }}</td>
+            <td>{{ p.payment_type }}</td>
+            <td>{{ p.amount }}</td>
+            <td>{{ p.note }}</td>
         {% endfor %}
         {% endif %}
         </tr>

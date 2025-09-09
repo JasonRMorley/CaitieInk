@@ -53,7 +53,7 @@ class ClientService:
                         price_final=t.price_final,
                         bookings=[
                             BookingVM(id=b.id, date=b.date, start_time=b.start_time, end_time=b.end_time,
-                                      booking_type=b.booking_type, client_id=b.client_id, tattoo_id=b.tattoo_id
+                                      booking_type=b.booking_type, client_id=b.client, tattoo_id=b.tattoo_id
                                       )
                             for b in t.bookings
                         ],
@@ -67,7 +67,7 @@ class ClientService:
                 bookings=[
                     BookingVM(id=b.id, date=b.date, start_time=b.start_time,
                               end_time=b.end_time, booking_type=b.booking_type,
-                              client_id=b.client_id, tattoo_id=b.tattoo_id
+                              client_id=b.client, tattoo_id=b.tattoo_id
                               )
                     for b in client.bookings
                 ],
@@ -130,31 +130,75 @@ class BookingService:
     def __init__(self, uow_factory):
         self.uow_factory = uow_factory
 
-    def register_booking(self, client_id, tattoo_id, booking_date, start_time, end_time, booking_type):
+    def register_booking(self, client_id, tattoo_id, booking_date, start_time, end_time, booking_type, state):
         with self.uow_factory() as uow:
             tattoo = uow.clients.session.get(Tattoo, tattoo_id)
             booking = Booking(client_id=client_id, tattoo_id=tattoo_id, date=booking_date,
-                              start_time=start_time, end_time=end_time, booking_type=booking_type)
+                              start_time=start_time, end_time=end_time, booking_type=booking_type, state=state)
             tattoo.bookings.append(booking)
             print(f"booking sent to db {tattoo.id}")
 
-    def retrieve_bookings_for_table(self):
+    def retrieve_bookings_for_table(self, state):
         with self.uow_factory() as uow:
             bookings = uow.bookings.get_all_bookings()
             if bookings is None:
                 return None
+            vm = []
 
             for b in bookings:
-                client = uow.clients.get_by_id(b.client_id)
-                client_name = client.first_name + " " + client.last_name
-                tattoo_id, tattoo_name = b.tattoo_id, uow.tattoos.get_by_id(b.tattoo_id).title
+                if b.state == state:
+                    client = uow.clients.get_by_id(b.client.id)
+                    client_name = f"{str(client.first_name)} {str(client.last_name)}"
+                    tattoo_id, tattoo_name = b.tattoo_id, uow.tattoos.get_by_id(b.tattoo_id).title
 
-                vm = [TableBookingVM(id=b.id, date=b.date, start_time=b.start_time,
-                                     end_time=b.end_time, booking_type=b.booking_type,
-                                     client=ClientMiniVM(id=b.client_id, name=client_name),
-                                     client_id=b.client_id, tattoo_id=b.tattoo_id,
-                                     tattoo=TattooMiniVM(id=tattoo_id, title=tattoo_name)
-                                     )
-                      ]
+                    vm.append(TableBookingVM(id=b.id, date=b.date, start_time=b.start_time,
+                                             end_time=b.end_time, booking_type=b.booking_type,
+                                             client=ClientMiniVM(id=b.client, name=client_name),
+                                             client_id=b.client, tattoo_id=b.tattoo_id,
+                                             tattoo=TattooMiniVM(id=tattoo_id, title=tattoo_name)
+                                             ))
+
+            return vm
+
+    def retrieve_booking_vm_by_id(self, booking_id):
+        with self.uow_factory() as uow:
+            b = uow.bookings.get_booking_by_id(booking_id=booking_id)
+            booking = BookingVM(id=b.id, tattoo_id=b.tattoo_id, client_id=b.client_id, date=b.date,
+                                start_time=b.start_time, end_time=b.end_time, booking_type=b.booking_type)
+            return booking
+
+    def mark_completed(self, booking_id: int):
+        with self.uow_factory() as uow:
+            booking = uow.bookings.get_booking_by_id(booking_id)
+            if booking is None:
+                raise ValueError("Booking not found")
+
+            booking.state = "Completed"
+            uow.bookings.add(booking)
+
+
+class PaymentService:
+    def __init__(self, uow_factory):
+        self.uow_factory = uow_factory
+
+    def register_payment(self, tattoo_id, client_id, booking_id, amount, payment_type, date, notes):
+        with self.uow_factory() as uow:
+            payment = Payment(tattoo_id=tattoo_id, client_id=client_id, booking_id=booking_id,
+                              payment_type=payment_type, amount=amount, date=date, notes=notes)
+            uow.payments.add(payment)
+
+    def retrieve_all_payments(self):
+        with self.uow_factory() as uow:
+            all_payments = uow.payments.get_all_payments()
+            vm = []
+            for p in all_payments:
+                client = uow.clients.get_by_id(p.client_id)
+                client_name = f"{str(client.first_name)} {str(client.last_name)}"
+                tattoo = uow.tattoos.get_by_id(p.tattoo_id)
+
+                vm.append(PaymentTableVM(
+                        id=p.id, tattoo_title=tattoo.title, client_name=client_name, booking_id=None,
+                        payment_type=p.payment_type, amount=p.amount, note=p.notes
+                    ))
 
             return vm

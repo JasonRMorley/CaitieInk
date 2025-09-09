@@ -29,12 +29,14 @@ class TableBookingVM:
 @dataclass
 class BookingVM:
     id: int
+    tattoo_id: int
+    client_id: int
+
     date: date
     start_time: time
     end_time: time
     booking_type: str
-    client_id: int
-    tattoo_id: int
+
 
 
 @dataclass
@@ -42,6 +44,16 @@ class PaymentVM:
     id: int
     amount: float
     method: str | None
+
+@dataclass
+class PaymentTableVM:
+    id: int
+    tattoo_title: str
+    client_name: str
+    booking_id: int | None
+    payment_type: str
+    amount: float
+    note: str
 
 
 @dataclass
