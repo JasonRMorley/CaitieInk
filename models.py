@@ -71,7 +71,8 @@ class Payment(Base):
 class Expenses(Base):
     __tablename__ = "expense"
     id = Column(Integer, primary_key=True)
+    amount = Column(Integer, nullable=False)
     date = Column(Date, nullable=False)
     item = Column(String, nullable=False)
     category = Column(String, nullable=False)
-    notes = Column(String, nullable=False)
+    notes = Column(String, nullable=True)

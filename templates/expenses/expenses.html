@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block title %}Expenses{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div id="ButtonContainer">
+    <button>
+        <a href="{{url_for('route_add_expense')}}"> Add Expense</a>
+    </button>
+        <button>
+        <a href="{{url_for('route_add_expense')}}"> Generate Report</a>
+    </button>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">date</th>
+          <th scope="col">item</th>
+          <th scope="col">category</th>
+            <th scope="col">Amount</th>
+          <th scope="col">notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if expense_list %}
+            {% for e in expense_list %}
+                <tr>
+                  <th scope="row">1</th>
+                  <td>{{ e.date }}</td>
+                  <td>{{ e.item }}</td>
+                  <td>{{ e.category }}</td>
+                    <td>{{ e.amount }}</td>
+                  <td>{{ e.notes }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+
+
+      </tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

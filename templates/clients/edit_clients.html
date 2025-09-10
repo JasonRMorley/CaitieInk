@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+
+{% block title %}Edit Client{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+{{ render_form(form, novalidate=True) }}
+{% endblock %}

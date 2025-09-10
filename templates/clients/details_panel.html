@@ -9,9 +9,11 @@
         <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <h6>Name: {{selected_client.first_name}} {{selected_client.last_name}}</h6>
-                <h6>Phone numer: {{selected_client.phone_number}}</h6>
+                <h6>Phone numer: {{selected_client.phone}}</h6>
                 <h6>Notes: {{selected_client.notes}}</h6>
-                <button class="btn" type="button">Edit details</button>
+                <button class="btn" type="button">
+                    <a href="{{ url_for('route_edit_client', client_id = selected_client.id ) }}">Edit details</a>
+                </button>
             </div>
         </div>
     </div>

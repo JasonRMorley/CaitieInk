@@ -26,6 +26,7 @@ class TableBookingVM:
     client: ClientMiniVM
     tattoo: TattooMiniVM | None
 
+
 @dataclass
 class BookingVM:
     id: int
@@ -38,12 +39,12 @@ class BookingVM:
     booking_type: str
 
 
-
 @dataclass
 class PaymentVM:
     id: int
     amount: float
     method: str | None
+
 
 @dataclass
 class PaymentTableVM:
@@ -82,3 +83,12 @@ class ClientDetailVM:
     @property
     def name(self) -> str:
         return f"{self.first_name} {self.last_name}"
+
+@dataclass
+class ExpenseVM:
+    id: int
+    amount: int
+    date: date
+    item: str
+    category: str
+    notes: str

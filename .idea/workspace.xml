@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a20896a7-0fd1-43d2-80f1-83842d7e2c60" name="Changes" comment="refactored">
-      <change afterPath="$PROJECT_DIR$/static/js/payments.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/add_payment.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/payment_modal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_09_2025_22_26_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_09_2025_22_26__Changes_.xml" beforeDir="false" />
+    <list default="true" id="a20896a7-0fd1-43d2-80f1-83842d7e2c60" name="Changes" comment="New Feature - Payments&#10;Feature Updated - Bookings can be filtered">
+      <change afterPath="$PROJECT_DIR$/templates/bookings/bookings.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/clients/edit_clients.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/expenses/add_expense.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/expenses/expenses.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/home/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dtos.py" beforeDir="false" afterPath="$PROJECT_DIR$/dtos.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/forms.py" afterDir="false" />
@@ -17,9 +17,20 @@
       <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/repositories.py" beforeDir="false" afterPath="$PROJECT_DIR$/repositories.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services.py" beforeDir="false" afterPath="$PROJECT_DIR$/services.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/bookings.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bookings.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/payments.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/payments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/add_client.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clients/add_client.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/add_payment.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bookings/add_payment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/add_tattoo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tattoos/add_tattoo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bookings/booking.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/bookings.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/client_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clients/client_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/clients.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clients/clients.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/details_panel.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clients/details_panel.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/edit_tattoo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tattoos/edit_tattoo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/navbar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/payment_modal.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/payments/payment_modal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/payments.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/payments/payments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/reports.html" beforeDir="false" afterPath="$PROJECT_DIR$/dev.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unit_of_works.py" beforeDir="false" afterPath="$PROJECT_DIR$/unit_of_works.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,7 +61,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -72,7 +83,7 @@
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/payments&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/expenses&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/jrmor/PycharmProjects/CaitieInk/templates&quot;
   }
 }</component>
@@ -81,8 +92,11 @@
       <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk" />
-      <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\repositories" />
+      <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\templates\bookings" />
+      <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\templates\tattoos" />
+      <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\templates\expenses" />
+      <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\templates\payments" />
+      <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\templates\clients" />
     </key>
   </component>
   <component name="RunManager">

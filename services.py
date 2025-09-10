@@ -12,12 +12,21 @@ class ClientService:
     def register_client(self, first_name, last_name, phone_number, notes):
         with self.uow_factory() as uow:
             client = Client(first_name=first_name, last_name=last_name, phone_number=phone_number, notes=notes)
-        uow.clients.add(client)
-        print("client added")
+            uow.clients.add(client)
+
 
     def retrieve_all_clients(self):
         with self.uow_factory() as uow:
-            return uow.clients.get_all_clients()
+            clients = uow.clients.get_all_clients()
+            vm = []
+            for c in clients:
+                vm.append(
+                    ClientMiniVM(
+                        id=c.id,
+                        name=f"{c.first_name} {c.last_name}"
+                    )
+                )
+            return vm
 
     def retrieve_client_profile(self, client_id: int) -> ClientDetailVM | None:
         with self.uow_factory() as uow:
@@ -58,7 +67,7 @@ class ClientService:
                             for b in t.bookings
                         ],
                         payments=[
-                            PaymentVM(id=p.id, amount=p.amount, method=getattr(p, "method", None))
+                            PaymentVM(id=p.id, amount=p.amount, method=p.payment_type)
                             for p in t.payments
                         ],
                     )
@@ -72,12 +81,49 @@ class ClientService:
                     for b in client.bookings
                 ],
                 payments=[
-                    PaymentVM(id=p.id, amount=p.amount, method=p.method
+                    PaymentVM(id=p.id, amount=p.amount, method=p.payment_type
                               )
                     for p in client.payments
                 ]
             )
             return v
+
+    def print_all_clients(self):
+        with self.uow_factory() as uow:
+            c_list = uow.clients.get_all_clients()
+            for c in c_list:
+                print(f"{c.id} {c.fist_name} {c.last_name} {c.phone_number}")
+
+    def edit_client(
+            self,
+            client_id: int,
+            *,
+            first_name: Optional[str] = None,
+            last_name: Optional[str] = None,
+            phone_number: Optional[int] = None,
+            notes: Optional[str] = None,
+    ) -> bool:
+        """Return True if updated, False if tattoo not found."""
+        with self.uow_factory() as uow:
+            client = uow.clients.session.get(Client, client_id)
+
+            if client is None:
+                return False
+
+            if client.id != int(client_id):
+                print(f"{type(client.id)} {type(client_id)}")
+                raise ValueError("Tattoo does not belong to this client")
+
+            if first_name is not None and first_name != "":
+                client.first_name = str(first_name)
+            if last_name is not None and last_name != "":
+                client.last_name = str(last_name)
+            if phone_number is not None:
+                client.phone_number = phone_number
+            if notes is not None:
+                client.notes = str(notes)
+
+            return True
 
 
 class TattooService:
@@ -109,7 +155,7 @@ class TattooService:
             if tattoo is None:
                 return False
 
-            if tattoo.id != client_id:
+            if tattoo.client_id != client_id:
                 raise ValueError("Tattoo does not belong to this client")
 
             if title is not None and title != "":
@@ -124,6 +170,12 @@ class TattooService:
                 tattoo.status = status
 
             return True
+
+    def print_all_tattoos(self):
+        with self.uow_factory() as uow:
+            e_list = uow.tattoos.get_all_clients()
+            for e in e_list:
+                print(f"{e.id} {e.title} {e.price_estimate} {e.price_final}")
 
 
 class BookingService:
@@ -202,3 +254,23 @@ class PaymentService:
                     ))
 
             return vm
+
+class ExpensesService:
+    def __init__(self, uow_factory):
+        self.uow_factory = uow_factory
+
+    def register_expense(self,amount, expense_date, item, category, notes):
+        expense = Expenses(amount=amount, date=expense_date, item=item, category=category, notes=notes)
+        with self.uow_factory() as uow:
+            return uow.expenses.add(expense)
+
+    def retrieve_all_expenses(self):
+        with self.uow_factory() as uow:
+            expenses = uow.expenses.get_all_expenses()
+            vm = []
+            for e in expenses:
+                vm.append(
+                  ExpenseVM(id=e.id, amount=e.amount, date=e.date, item=e.item, category=e.category, notes=e.notes)
+                )
+            return vm
+

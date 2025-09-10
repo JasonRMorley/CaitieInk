@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 
-from wtforms import StringField, SubmitField, HiddenField, IntegerField, DateField, TimeField, SelectField
+from wtforms import StringField, SubmitField, HiddenField, IntegerField, DateField, TimeField, SelectField, FloatField
 
 from wtforms.validators import DataRequired, Length, Optional
 
@@ -49,5 +49,24 @@ class PaymentForm(FlaskForm):
                         choices=[("Inking", "Inking"), ("Deposit", "Deposit")])
     date = DateField("Paid On")
     booking_id = HiddenField(validators=[DataRequired()])
+
+    submit = SubmitField("Submit")
+
+
+class ExpenseForm(FlaskForm):
+    date = DateField("date of expense",validators=[DataRequired()])
+    item = StringField("Expense Name",validators=[DataRequired()])
+    category = StringField("Category",validators=[DataRequired()])
+    amount = FloatField("Amount",validators=[DataRequired()])
+    notes = StringField("Note")
+
+    submit = SubmitField("Submit")
+
+
+class EditClientForm(FlaskForm):
+    first_name = StringField("Enter Clients first name")
+    last_name = StringField("Enter Clients last name")
+    phone_number = StringField("Enter Clients phone number")
+    notes = StringField("notes: ")
 
     submit = SubmitField("Submit")

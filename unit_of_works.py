@@ -1,6 +1,6 @@
 from contextlib import AbstractContextManager
 from sqlalchemy.orm import sessionmaker
-from repositories import ClientRepository, BookingRepository, TattooRepository, PaymentRepository
+from repositories import *
 
 class SqlAlchemyUnitOfWork(AbstractContextManager):
     def __init__(self, session_factory: sessionmaker):
@@ -10,6 +10,7 @@ class SqlAlchemyUnitOfWork(AbstractContextManager):
         self.bookings = None
         self.tattoos = None
         self.payments = None
+        self.expenses = None
 
     def __enter__(self):
         self.session = self.session_factory()
@@ -17,6 +18,7 @@ class SqlAlchemyUnitOfWork(AbstractContextManager):
         self.bookings = BookingRepository(self.session)
         self.tattoos = TattooRepository(self.session)
         self.payments = PaymentRepository(self.session)
+        self.expenses = ExpenseRepository(self.session)
         return self
 
     def __exit__(self, exc_type, exc, tb):
