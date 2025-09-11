@@ -1,9 +1,10 @@
 <div class="list-group">
-    {% for client in client_profiles %}
-        <a href="{{ url_for('route_clients')}}{{client.id}}">
-            {{ client.name }}
-        </a>
-    {% endfor %}
-
-
+  {% for client in client_profiles %}
+    <a href="{{ url_for('route_clients', client_id=client.id) }}"
+       class="list-group-item list-group-item-action">
+      {{ client.name }}
+    </a>
+  {% else %}
+    <div class="list-group-item text-muted">No clients found</div>
+  {% endfor %}
 </div>

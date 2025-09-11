@@ -4,34 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a20896a7-0fd1-43d2-80f1-83842d7e2c60" name="Changes" comment="New Feature - Payments&#10;Feature Updated - Bookings can be filtered">
-      <change afterPath="$PROJECT_DIR$/templates/bookings/bookings.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/clients/edit_clients.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/expenses/add_expense.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/expenses/expenses.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/home/index.html" afterDir="false" />
+    <list default="true" id="a20896a7-0fd1-43d2-80f1-83842d7e2c60" name="Changes" comment="New feature - homepage + polish">
+      <change afterPath="$PROJECT_DIR$/static/images/logo/logo.psd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dtos.py" beforeDir="false" afterPath="$PROJECT_DIR$/dtos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories.py" beforeDir="false" afterPath="$PROJECT_DIR$/repositories.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services.py" beforeDir="false" afterPath="$PROJECT_DIR$/services.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/add_client.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clients/add_client.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/add_payment.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bookings/add_payment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/add_tattoo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tattoos/add_tattoo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bookings/booking.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/bookings.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/client_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clients/client_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/clients.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clients/clients.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/details_panel.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clients/details_panel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/edit_tattoo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tattoos/edit_tattoo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/navbar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/payment_modal.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/payments/payment_modal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/payments.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/payments/payments.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/reports.html" beforeDir="false" afterPath="$PROJECT_DIR$/dev.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unit_of_works.py" beforeDir="false" afterPath="$PROJECT_DIR$/unit_of_works.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ignore.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/ignore.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/notes.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="feature/homepage" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -83,7 +60,7 @@
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/expenses&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/jrmor/PycharmProjects/CaitieInk/templates&quot;
   }
 }</component>
@@ -220,7 +197,23 @@
       <option name="project" value="LOCAL" />
       <updated>1757188336952</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="New Feature - Payments&#10;Feature Updated - Expenses - some refactoring.">
+      <option name="closed" value="true" />
+      <created>1757539038220</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1757539038220</updated>
+    </task>
+    <task id="LOCAL-00011" summary="New Feature - Payments&#10;Feature Updated - Expenses - some refactoring.">
+      <option name="closed" value="true" />
+      <created>1757539052588</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1757539052588</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -254,6 +247,7 @@
     <MESSAGE value="new feature - edit tattoo." />
     <MESSAGE value="new feature - booking." />
     <MESSAGE value="new feature - Booking system" />
-    <option name="LAST_COMMIT_MESSAGE" value="new feature - Booking system" />
+    <MESSAGE value="New Feature - Payments&#10;Feature Updated - Expenses - some refactoring." />
+    <option name="LAST_COMMIT_MESSAGE" value="New Feature - Payments&#10;Feature Updated - Expenses - some refactoring." />
   </component>
 </project>

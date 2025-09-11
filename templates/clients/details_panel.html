@@ -1,88 +1,103 @@
-<div class="accordion" id="accordionExample">
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                aria-expanded="true" aria-controls="collapseOne">
-                Client Details
-            </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <h6>Name: {{selected_client.first_name}} {{selected_client.last_name}}</h6>
-                <h6>Phone numer: {{selected_client.phone}}</h6>
-                <h6>Notes: {{selected_client.notes}}</h6>
-                <button class="btn" type="button">
-                    <a href="{{ url_for('route_edit_client', client_id = selected_client.id ) }}">Edit details</a>
-                </button>
-            </div>
-        </div>
+<div class="accordion" id="accordionClient">
+  <!-- Client Details -->
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button"
+              data-bs-toggle="collapse" data-bs-target="#collapseClient"
+              aria-expanded="true" aria-controls="collapseClient">
+        Client Details
+      </button>
+    </h2>
+    <div id="collapseClient" class="accordion-collapse collapse show" data-bs-parent="#accordionClient">
+      <div class="accordion-body">
+        <h6><strong>Name:</strong> {{ selected_client.first_name }} {{ selected_client.last_name }}</h6>
+        <h6><strong>Phone:</strong> {{ selected_client.phone }}</h6>
+        <h6><strong>Notes:</strong> {{ selected_client.notes }}</h6>
+        <a href="{{ url_for('route_edit_client', client_id=selected_client.id) }}"
+           class="btn btn-sm btn-outline-primary mt-2">
+          Edit Details
+        </a>
+      </div>
     </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Tattoos
-            </button>
-        </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <span class="container">
-                    <button><a href="{{ url_for('route_add_tattoo', client_id = selected_client.id ) }}">Add</a></button>
-                </span>
-                {% for tattoo in selected_client.tattoos %}
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ tattoo.title }}
-                                <a href="{{ url_for(
-                                'route_edit_tattoo', client_id = selected_client.id, tattoo_id = tattoo.id ) }}"
-                                >
-                                    edit
-                                </a>
-                                <button>delete</button>
+  </div>
 
-                            </h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
-                            <p class="card-text">
-                            <ul>
-                                <li>estimated price: {{tattoo.price_estimate}}</li>
-                                <li>final price: {{tattoo.price_final}}</li>
-                                <li>Status: {{tattoo.status}}</li>
-                                <li>Notes: {{tattoo.note}}</li>
-                            </ul>
+  <!-- Tattoos -->
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#collapseTattoos"
+              aria-expanded="false" aria-controls="collapseTattoos">
+        Tattoos
+      </button>
+    </h2>
+    <div id="collapseTattoos" class="accordion-collapse collapse" data-bs-parent="#accordionClient">
+      <div class="accordion-body">
+        <a href="{{ url_for('route_add_tattoo', client_id=selected_client.id) }}"
+           class="btn btn-sm btn-success mb-3">Add Tattoo</a>
 
-                            <a href="#" class="card-link">Design</a>
-                            <a href="#" class="card-link">Consultation</a>
-                            <a href="{{ url_for('route_add_booking', client_id = selected_client.id, tattoo_id = tattoo.id) }}" class="card-link">Book-in</a>
-                        </div>
+        {% if selected_client.tattoos %}
+          <div class="row g-3">
+            {% for tattoo in selected_client.tattoos %}
+              <div class="col-md-6">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-center">
+                      {{ tattoo.title }}
+                      <div>
+                        <a href="{{ url_for('route_edit_tattoo', client_id=selected_client.id, tattoo_id=tattoo.id) }}"
+                           class="btn btn-sm btn-outline-primary">Edit</a>
+                      </div>
+                    </h5>
+                    <ul class="mb-2">
+                      <li>Estimate: £{{ tattoo.price_estimate }}</li>
+                      <li>Final Price: £{{ tattoo.price_final }}</li>
+                      <li>Status: {{ tattoo.status }}</li>
+                      <li>Notes: {{ tattoo.note }}</li>
+                    </ul>
+                    <div>
+                      <a href="{{ url_for('route_add_booking', client_id=selected_client.id, tattoo_id=tattoo.id) }}"
+                         class="card-link">Book-in</a>
                     </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="text-muted">No tattoos added yet.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Bookings -->
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#collapseBookings"
+              aria-expanded="false" aria-controls="collapseBookings">
+        Bookings
+      </button>
+    </h2>
+    <div id="collapseBookings" class="accordion-collapse collapse" data-bs-parent="#accordionClient">
+      <div class="accordion-body">
+        {% if selected_client and selected_client.tattoos %}
+          {% for tattoo in selected_client.tattoos %}
+            <h5 class="mt-2">{{ tattoo.title }}</h5>
+            {% if tattoo.bookings %}
+              <ul>
+                {% for booking in tattoo.bookings %}
+                  <li>{{ booking.date }} {{ booking.time }}</li>
                 {% endfor %}
-
-            </div>
-        </div>
+              </ul>
+            {% else %}
+              <p class="text-muted">No bookings yet</p>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <p class="text-muted">No bookings found for this client</p>
+        {% endif %}
+      </div>
     </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Bookings
-            </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                {% if selected_client and selected_client.tattoos %}
-                    {% for tattoo in selected_client.tattoos %}
-                        <h5> {{tattoo.title}} {{tattoo.id}}</h5>
-                            {% if tattoo.booking %}
-                                {% for booking in tattoo.bookings %}
-                                    <h6> {{booking.date }} {{booking.time}}</h6>
-                                {% endfor %}
-                            {% else %}
-                                <h6>No bookings yet</h6>
-                            {% endif %}
-                    {% endfor %}
-                {% endif %}
-
-            </div>
-        </div>
-    </div>
+  </div>
 </div>

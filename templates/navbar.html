@@ -1,8 +1,7 @@
-
 <nav class="nav flex-column">
-  <a class="nav-link active" aria-current="page" href="{{ url_for('route_home') }}">Home</a>
-  <a class="nav-link" href="{{ url_for('route_clients') }}">Clients</a>
-  <a class="nav-link" href="{{ url_for('route_bookings') }}">Bookings</a>
-  <a class="nav-link" href="{{ url_for('route_payments') }}">Payments</a>
-  <a class="nav-link" href="{{ url_for('route_expenses') }}">Expenses</a>
+  <a class="nav-link {% if request.endpoint == 'route_home' %}active{% endif %}" href="{{ url_for('route_home') }}">Home</a>
+  <a class="nav-link {% if request.endpoint == 'route_clients' %}active{% endif %}" href="{{ url_for('route_clients') }}">Clients</a>
+  <a class="nav-link {% if request.endpoint == 'route_bookings' %}active{% endif %}" href="{{ url_for('route_bookings') }}">Bookings</a>
+  <a class="nav-link {% if request.endpoint == 'route_payments' %}active{% endif %}" href="{{ url_for('route_payments') }}">Payments</a>
+  <a class="nav-link {% if request.endpoint == 'route_expenses' %}active{% endif %}" href="{{ url_for('route_expenses') }}">Expenses</a>
 </nav>

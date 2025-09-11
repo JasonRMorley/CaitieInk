@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 {% from 'bootstrap5/form.html' import render_form %}
 
-{% block title %}Add Tattoo{% endblock %}
-
-{% block head %}
-
-{% endblock %}
+{% block title %}Edit Tattoo{% endblock %}
 
 {% block content %}
-{{ render_form(form, novalidate=True) }}
-
+  <div class="mb-4">
+    <h1 class="mb-3">Edit Tattoo</h1>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        {{ render_form(form, novalidate=True) }}
+      </div>
+    </div>
+  </div>
 {% endblock %}

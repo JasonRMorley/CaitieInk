@@ -3,50 +3,44 @@
 
 {% block title %}Expenses{% endblock %}
 
-{% block head %}
-{% endblock %}
-
 {% block content %}
-<div class="container">
-    <div id="ButtonContainer">
-    <button>
-        <a href="{{url_for('route_add_expense')}}"> Add Expense</a>
-    </button>
-        <button>
-        <a href="{{url_for('route_add_expense')}}"> Generate Report</a>
-    </button>
+  <div class="mb-4 d-flex justify-content-between align-items-center">
+    <h1 class="mb-0">Expenses</h1>
+    <div class="btn-group">
+      <a href="{{ url_for('route_add_expense') }}" class="btn btn-success">Add Expense</a>
     </div>
+  </div>
 
-    <table class="table">
-        <thead>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead class="table-light">
         <tr>
           <th scope="col">#</th>
-          <th scope="col">date</th>
-          <th scope="col">item</th>
-          <th scope="col">category</th>
-            <th scope="col">Amount</th>
-          <th scope="col">notes</th>
+          <th scope="col">Date</th>
+          <th scope="col">Item</th>
+          <th scope="col">Category</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Notes</th>
         </tr>
       </thead>
       <tbody>
         {% if expense_list %}
-            {% for e in expense_list %}
-                <tr>
-                  <th scope="row">1</th>
-                  <td>{{ e.date }}</td>
-                  <td>{{ e.item }}</td>
-                  <td>{{ e.category }}</td>
-                    <td>{{ e.amount }}</td>
-                  <td>{{ e.notes }}</td>
-                </tr>
-            {% endfor %}
+          {% for e in expense_list %}
+            <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ e.date }}</td>
+              <td>{{ e.item }}</td>
+              <td>{{ e.category }}</td>
+              <td>£{{ "%.2f"|format(e.amount) }}</td>
+              <td>{{ e.notes }}</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="6" class="text-center text-muted">No expenses recorded</td>
+          </tr>
         {% endif %}
-
-
       </tbody>
-  </table>
-</div>
-{% endblock %}
-
-{% block scripts %}
+    </table>
+  </div>
 {% endblock %}

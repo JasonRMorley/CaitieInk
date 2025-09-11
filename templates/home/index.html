@@ -1,12 +1,14 @@
 {% extends "base.html" %}
-{% from 'bootstrap5/form.html' import render_form %}
 
 {% block title %}Home{% endblock %}
 
-{% block head %}
-
-{% endblock %}
-
 {% block content %}
-
+  <div class="text-center my-5">
+    <img src="{{ url_for('static', filename='images/logo/caitie_ink_logo_full.png') }}"
+         alt="Catie Ink Logo"
+         class="img-fluid"
+         style="max-width: 400px;">
+    <h1 class="mt-4">Welcome to Caitie Ink</h1>
+    <p class="lead">Manage clients, tattoos, bookings, and finances — all in one place.</p>
+  </div>
 {% endblock %}

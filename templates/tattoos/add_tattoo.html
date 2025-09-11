@@ -3,11 +3,13 @@
 
 {% block title %}Add Tattoo{% endblock %}
 
-{% block head %}
-
-{% endblock %}
-
 {% block content %}
-{{ render_form(form) }}
-
+  <div class="mb-4">
+    <h1 class="mb-3">Add Tattoo</h1>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        {{ render_form(form) }}
+      </div>
+    </div>
+  </div>
 {% endblock %}

@@ -25,3 +25,6 @@ Thumbs.db
 
 # Environment variables / secrets
 *.env
+
+# photo editing software
+/static/images/logo/logo.psd

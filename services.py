@@ -88,12 +88,6 @@ class ClientService:
             )
             return v
 
-    def print_all_clients(self):
-        with self.uow_factory() as uow:
-            c_list = uow.clients.get_all_clients()
-            for c in c_list:
-                print(f"{c.id} {c.fist_name} {c.last_name} {c.phone_number}")
-
     def edit_client(
             self,
             client_id: int,
@@ -118,9 +112,9 @@ class ClientService:
                 client.first_name = str(first_name)
             if last_name is not None and last_name != "":
                 client.last_name = str(last_name)
-            if phone_number is not None:
+            if phone_number is not None and phone_number != "":
                 client.phone_number = phone_number
-            if notes is not None:
+            if notes is not None and notes != "":
                 client.notes = str(notes)
 
             return True

@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 {% from 'bootstrap5/form.html' import render_form %}
 
-{% block title %}Add a Payment{% endblock %}
-
-{% block head %}
-
-{% endblock %}
+{% block title %}Add Payment{% endblock %}
 
 {% block content %}
-
+  <div class="mb-4">
+    <h1 class="mb-3">Add Payment</h1>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        {{ render_form(form) }}
+      </div>
+    </div>
+  </div>
 {% endblock %}

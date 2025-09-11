@@ -1,37 +1,40 @@
-<!doctype html> 
-<html lang="en"> 
-    <head> 
- 
-        <meta charset="utf-8"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-        {{ bootstrap.load_css() }} 
-        <title>{% block title %}{% endblock %} Your page title</title> 
-        {% block styles %}{% endblock %} 
-        {% block head %}{% endblock %} 
-    </head> 
-    <body> 
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {{ bootstrap.load_css() }}
+    <title>{% block title %}{% endblock %} | Caitie Ink</title>
+    {% block styles %}{% endblock %}
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <div class="d-flex">
+      <!-- Sidebar -->
+      <div class="flex-shrink-0 p-3 bg-light" style="width: 220px; min-height: 100vh;">
         {% include 'navbar.html' %}
+      </div>
 
+      <!-- Main content -->
+      <div class="flex-grow-1 p-4">
         {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
+          {% if messages %}
             <div class="container mt-2">
-                {% for category, message in messages %}
-            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endfor %}
             </div>
-        {% endfor %}
+          {% endif %}
+        {% endwith %}
 
+        {% block content %}{% endblock %}
+      </div>
     </div>
-  {% endif %}
-{% endwith %}
-        <div class="container" name="base_container">
-            {% block content %}{% endblock %} 
-        </div>
-        {{ bootstrap.load_js() }} 
-        {% block scripts %} 
-        {% endblock %} 
-    </body> 
-</html> 
 
- 
+    {{ bootstrap.load_js() }}
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

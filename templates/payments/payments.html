@@ -1,39 +1,41 @@
 {% extends "base.html" %}
 {% from 'bootstrap5/form.html' import render_form %}
 
-{% block title %}Booking{% endblock %}
-
-{% block head %}
-
-{% endblock %}
+{% block title %}Payments{% endblock %}
 
 {% block content %}
+  <div class="mb-4">
+    <h1 class="mb-3">Payments</h1>
+  </div>
 
-<div class="container">
-    <table class="table">
-        <thead>
-            <tr>
-            <th scope="col">Tattoo Title</th>
-            <th scope="col">Client Name</th>
-            <th scope="col">Payment Type</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Note</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% if payments %}
-        {% for p in payments %}
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead class="table-light">
         <tr>
-            <td>{{ p.tattoo_title }}</td>
-            <td>{{ p.client_name }}</td>
-            <td>{{ p.payment_type }}</td>
-            <td>{{ p.amount }}</td>
-            <td>{{ p.note }}</td>
-        {% endfor %}
-        {% endif %}
+          <th scope="col">Tattoo Title</th>
+          <th scope="col">Client Name</th>
+          <th scope="col">Payment Type</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Note</th>
         </tr>
-
-        </tbody>
+      </thead>
+      <tbody>
+        {% if payments %}
+          {% for p in payments %}
+            <tr>
+              <td>{{ p.tattoo_title }}</td>
+              <td>{{ p.client_name }}</td>
+              <td>{{ p.payment_type }}</td>
+              <td>£{{ "%.2f"|format(p.amount) }}</td>
+              <td>{{ p.note }}</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="5" class="text-center text-muted">No payments recorded</td>
+          </tr>
+        {% endif %}
+      </tbody>
     </table>
-</div>
+  </div>
 {% endblock %}

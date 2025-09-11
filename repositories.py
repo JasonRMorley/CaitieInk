@@ -9,7 +9,6 @@ class ClientRepository:
         self.session = session
 
     def add(self, client: Client):
-        print("client added")
         self.session.add(client)
 
     def get_by_id(self, client_id: int, *, options: Sequence[Load] = ()) -> Client | None:
@@ -20,6 +19,17 @@ class ClientRepository:
 
     def get_all_clients(self):
         return self.session.query(Client).all()
+
+    def search_client(self, term: str) -> [Client]:
+
+        stmt = select(Client).filter(
+            (Client.first_name.ilike(f"%{term}%")) |
+            (Client.last_name.ilike(f"%{term}%")) |
+            (Client.phone_number.cast(String).ilike(f"%{term}%"))
+        )
+        result = self.session.execute(stmt)
+
+        return result.all()
 
 
 
