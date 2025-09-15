@@ -1,8 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import os
+from dotenv import load_dotenv
 
-DATABASE_URL = "postgresql+psycopg2://postgres:Jits123@localhost:5432/CaitlinsDB"
+load_dotenv()
+
+DATABASE_URL = os.getenv('DATABASE_URL')
+
 engine = create_engine(DATABASE_URL)
 SessionFactory = sessionmaker(bind=engine, expire_on_commit=False)
-
-

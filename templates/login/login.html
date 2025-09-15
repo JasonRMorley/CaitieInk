@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container px-4">
+  <div class="mb-4">
+    <h1 class="mb-3 text-center">Login</h1>
+    <div class="card shadow-sm">
+      <div class="card-body mx-2">
+        {{ render_form(form) }}
+        <form action="{{url_for('login_guest')}}" method="post">
+          <button type="submit" class="btn btn-success my-3"><a>SIGN IN AS GUEST</a></button>
+        </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

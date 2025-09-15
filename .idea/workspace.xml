@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a20896a7-0fd1-43d2-80f1-83842d7e2c60" name="Changes" comment="New feature - homepage + polish">
-      <change afterPath="$PROJECT_DIR$/static/images/logo/logo.psd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/decorators.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/login/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ignore.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/ignore.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/notes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/bookings/bookings.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bookings/bookings.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,15 +22,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/homepage" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -53,27 +57,30 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Python.database.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jrmor/PycharmProjects/CaitieInk/templates&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Python.create_users.executor": "Run",
+    "Python.database.executor": "Run",
+    "Python.main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feature/login",
+    "last_opened_file_path": "C:/Users/jrmor/PycharmProjects/CaitieInk/templates",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk" />
       <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\templates\bookings" />
       <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\templates\tattoos" />
       <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\templates\expenses" />
       <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\templates\payments" />
-      <recent name="C:\Users\jrmor\PycharmProjects\CaitieInk\templates\clients" />
     </key>
   </component>
   <component name="RunManager">
@@ -213,7 +220,15 @@
       <option name="project" value="LOCAL" />
       <updated>1757539052588</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="New feature - homepage + polish">
+      <option name="closed" value="true" />
+      <created>1757847917683</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1757847917683</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -240,6 +255,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="project created.&#10;modules imported.&#10;project files created.&#10;flask app set up.&#10;postgress database setup.&#10;db orm mapped classes setup.&#10;basic front end for clients page setup." />
     <MESSAGE value="Updated - add client feature." />
     <MESSAGE value="Updated - client page displays list of clients." />
@@ -248,6 +264,7 @@
     <MESSAGE value="new feature - booking." />
     <MESSAGE value="new feature - Booking system" />
     <MESSAGE value="New Feature - Payments&#10;Feature Updated - Expenses - some refactoring." />
-    <option name="LAST_COMMIT_MESSAGE" value="New Feature - Payments&#10;Feature Updated - Expenses - some refactoring." />
+    <MESSAGE value="New feature - homepage + polish" />
+    <option name="LAST_COMMIT_MESSAGE" value="New feature - homepage + polish" />
   </component>
 </project>

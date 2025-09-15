@@ -7,11 +7,11 @@
   <div class="mb-4">
     <h1 class="mb-3">Bookings</h1>
     <div class="btn-group mb-3" role="group" aria-label="Booking filters">
-      <a href="{{ url_for('route_bookings', filter='Current') }}"
+      <a href="{{ url_for('route_bookings')}}Current"
          class="btn btn-outline-success {% if filter == 'Current' %}active{% endif %}">
         Current Bookings
       </a>
-      <a href="{{ url_for('route_bookings', filter='Completed') }}"
+      <a href="{{ url_for('route_bookings') }}Completed"
          class="btn btn-outline-secondary {% if filter == 'Completed' %}active{% endif %}">
         Completed Bookings
       </a>

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 
-from wtforms import StringField, SubmitField, HiddenField, IntegerField, DateField, TimeField, SelectField, FloatField
+from wtforms import StringField, SubmitField, HiddenField, IntegerField, DateField, TimeField, SelectField, FloatField, PasswordField
 
 from wtforms.validators import DataRequired, Length, Optional
 
@@ -68,5 +68,11 @@ class EditClientForm(FlaskForm):
     last_name = StringField("Enter Clients last name")
     phone_number = StringField("Enter Clients phone number")
     notes = StringField("notes: ")
+
+    submit = SubmitField("Submit")
+
+class LoginForm(FlaskForm):
+    username = StringField("Username")
+    password = PasswordField("Password")
 
     submit = SubmitField("Submit")
