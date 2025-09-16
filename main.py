@@ -242,4 +242,5 @@ def route_expenses():
     return render_template('expenses/expenses.html', expense_list=e_list)
 
 
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
